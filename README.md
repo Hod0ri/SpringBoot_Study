@@ -51,5 +51,76 @@ IOperationSystem이라는 인터페이스를 Application에 주입을 한다.
 단지, IOperationSystem에 어떤 클래스를 전달 할 지만 개발자가 지정하면 된다.
 
 ## Ioc(Inversion of Control)
+> 메서드나 객체의 호출 작업을 개발자가 결정하는 것이 아닌 외부에서 결정되는 것
+
+기존 방식의 호출은 아래 순서를 따른다.
+1. 객체 생성
+2. 의존성 객체 생성 (클래스 내부)
+3. 의존성 객체 메서드 호출
+
+스프링에서는 아래와 같은 순서를 따른다.
+1. 객체 생성한다
+2. 의존성 객체 주입 (DI)
+    > 제어권을 스프링에게 위임한다.
+3. 의존성 객체 메서드 호출
+
+```java
+@Component
+public class Male{
+    @Autowired
+    private Female female;
+    
+    public void call(Female female){
+        System.out.println("Male!");
+        female.call();
+    }
+}
+
+@Component 
+public class Female{
+    @Autowired
+    private Male male;
+    
+    public void call(Male male){
+        System.out.println("Female!");
+        male.call();
+    }
+}
+```
+위 코드의 경우는, 두개의 Bean이 서로 의존을 하고 있으며, 하나의 Bean 내부에 메서드가 호출이 되면, CallStack이 무한정으로 쌓이게 된다.
+
+```java
+@Component
+public class Male{
+    
+    private Female female;
+    
+    @Autowired
+    public Male(Female female){
+        this.cat = cat;
+    }
+    
+    public void call(Female female){
+        System.out.println("Female!");
+        cat.call();
+    }
+}
+
+@Component 
+public class Female{
+    
+    private Male male;
+    
+    @Autowired
+    public Female(Male male){
+        this.male = male;
+    }
+    
+    public void call(Male male){
+        System.out.println("Male!");
+        male.call();
+    }
+}
+```
 
 ## AOP (Aspect Oriented Programming)
