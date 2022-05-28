@@ -16,22 +16,28 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class Apicontroller {
     @PostMapping("/user")
-    public ResponseEntity user(@Valid @RequestBody User user, BindingResult bindingResult) {
-        System.out.println(user);
-
-        if(bindingResult.hasErrors()) {
+    public ResponseEntity user(@Valid @RequestBody User user, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
+
             bindingResult.getAllErrors().forEach(objectError -> {
-                FieldError field = (FieldError)objectError;
+                FieldError field = (FieldError) objectError;
                 String message = objectError.getDefaultMessage();
 
-                sb.append("field : " + field.getField());
-                sb.append("\nmessage : " + message + "\n");
+                System.out.println("filed :" + field.getField());
+                System.out.println(message);
+
+                sb.append("field : " + field.getField() + "\n");
+                sb.append("message : " + message + "\n");
             });
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb);
         }
 
+
+        System.out.println(user);
+
         return ResponseEntity.ok(user);
     }
+
 }
