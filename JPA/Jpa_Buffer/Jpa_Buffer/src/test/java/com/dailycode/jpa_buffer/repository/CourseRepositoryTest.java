@@ -5,7 +5,10 @@ import com.dailycode.jpa_buffer.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,4 +42,5 @@ class CourseRepositoryTest {
 
         courseRepository.save(course);
     }
+
 }
