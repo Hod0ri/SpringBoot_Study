@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        public "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatis.mapper.FileBoardMapper">
+
+    <select id="selectFileBoard" resultType="com.example.mybatis.vo.FileBoard">
+        select * from file_board
+    </select>
+
+    <select id="selectFileBoardById" resultType="com.example.mybatis.vo.FileBoard">
+        select * from file_board where id = #{id}
+    </select>
+
+    <insert id="insertFileBoard" parameterType="com.example.mybatis.vo.FileBoard">
+        insert into file_board (id, title, content, writer, reg_date) values (#{id}, #{title}, #{content}, #{writer}, #{regDate})
+    </insert>
+
+    <update id="updateFileBoard" parameterType="com.example.mybatis.vo.FileBoard">
+        update file_board set title = #{title}, content = #{content}, writer = #{writer}, reg_date = #{regDate} where id = #{id}
+    </update>
+
+    <delete id="deleteFileBoard" parameterType="com.example.mybatis.vo.FileBoard">
+        delete from file_board where id = #{id}
+    </delete>
+
+</mapper>
